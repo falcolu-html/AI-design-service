@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOGOless | AI 設計服務申請</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;700&display=swap');
+        body { font-family: 'Noto Sans TC', sans-serif; background-color: #f8fafc; }
+        .step-active { color: #4f46e5; border-color: #4f46e5; }
+    </style>
+</head>
+<body>
+
+    <div class="max-w-3xl mx-auto py-12 px-6">
+        <div class="text-center mb-10">
+            <h1 class="text-3xl font-bold text-gray-900">AI 智慧設計服務</h1>
+            <p class="text-gray-500 mt-2">簡單三步驟，由 AI 與專業團隊為您打造專屬圖稿</p>
+        </div>
+
+        <div class="bg-indigo-50 border-l-4 border-indigo-500 p-6 rounded-r-xl mb-10">
+            <h2 class="text-indigo-800 font-bold mb-3"><i class="fas fa-info-circle mr-2"></i>服務說明</h2>
+            <ul class="text-indigo-700 text-sm space-y-2">
+                <li>• LOGOless AI 經過專業調教，並由<strong>專人人工審稿與調整</strong>。</li>
+                <li>• 申請後，我們將在<strong>隔日提供兩款圖稿</strong>供您參考。</li>
+                <li>• 方案包含<strong>一次修改機會</strong>，確保細節符合您的期待。</li>
+            </ul>
+        </div>
+
+        <div class="flex justify-between mb-12 relative">
+            <div class="absolute top-1/2 left-0 w-full h-0.5 bg-gray-200 -z-10"></div>
+            <div class="bg-indigo-600 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold">1</div>
+            <div class="bg-white border-2 border-gray-200 text-gray-400 w-10 h-10 rounded-full flex items-center justify-center font-bold">2</div>
+            <div class="bg-white border-2 border-gray-200 text-gray-400 w-10 h-10 rounded-full flex items-center justify-center font-bold">3</div>
+        </div>
+
+        <div class="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
+            
+            <div class="mb-10">
+                <label class="block text-lg font-bold text-gray-800 mb-4">
+                    1. 描述您的設計想法
+                </label>
+                <textarea 
+                    class="w-full border border-gray-200 rounded-xl p-4 text-gray-700 focus:ring-2 focus:ring-indigo-500 focus:outline-none h-32"
+                    placeholder="例如：我想要一個適合馬拉松團體的標誌，包含跑步的人影與太陽，顏色希望偏向螢光橘..."
+                ></textarea>
+            </div>
+
+            <div class="mb-10">
+                <label class="block text-lg font-bold text-gray-800 mb-4">
+                    2. 選擇偏好的風格
+                </label>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <button class="border-2 border-indigo-500 bg-indigo-50 p-4 rounded-xl text-center transition-all">
+                        <div class="text-2xl mb-2">✏️</div>
+                        <div class="font-bold text-indigo-700">線條型</div>
+                        <div class="text-xs text-indigo-500 mt-1">極簡、單色、洗鍊</div>
+                    </button>
+                    <button class="border-2 border-gray-100 p-4 rounded-xl text-center hover:border-indigo-200 transition-all">
+                        <div class="text-2xl mb-2">🏢</div>
+                        <div class="font-bold text-gray-700">現代感</div>
+                        <div class="text-xs text-gray-500 mt-1">幾何、字體、商業風格</div>
+                    </button>
+                    <button class="border-2 border-gray-100 p-4 rounded-xl text-center hover:border-indigo-200 transition-all">
+                        <div class="text-2xl mb-2">🎨</div>
+                        <div class="font-bold text-gray-700">繪畫風</div>
+                        <div class="text-xs text-gray-500 mt-1">手繪感、豐富細節、插畫</div>
+                    </button>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-100 pt-8">
+                <div class="flex justify-between items-center mb-6">
+                    <div>
+                        <span class="text-gray-500">服務費用總計</span>
+                        <div class="text-3xl font-bold text-gray-900">NT$ 200</div>
+                    </div>
+                    <div class="text-right">
+                        <label class="block text-sm text-gray-500 mb-2">選擇付款方式</label>
+                        <select class="border border-gray-200 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            <option>信用卡 / Apple Pay</option>
+                            <option>ATM 轉帳</option>
+                            <option>超商代碼付款</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button class="w-full bg-indigo-600 text-white py-4 rounded-2xl font-bold text-lg hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-200">
+                    確認送出並付款
+                </button>
+                <p class="text-center text-gray-400 text-xs mt-4">
+                    點擊按鈕即表示您同意 LOGOless AI 設計服務條款
+                </p>
+            </div>
+
+        </div>
+
+        <p class="text-center mt-8 text-gray-500 text-sm">
+            有任何疑問？ <a href="#" class="text-indigo-600 underline">聯繫線上客服</a>
+        </p>
+    </div>
+
+</body>
+</html>
