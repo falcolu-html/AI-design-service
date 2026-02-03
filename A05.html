@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOGOless | 開始您的 AI 設計</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap');
+        body { font-family: 'Noto Sans TC', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-50 antialiased">
+
+    <div class="max-w-2xl mx-auto py-12 px-6">
+        
+        <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden mb-8">
+            <div class="bg-indigo-600 px-8 py-4 text-white">
+                <h1 class="text-xl font-bold">AI 智慧設計申請</h1>
+            </div>
+            <div class="p-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-gray-600">
+                    <div class="flex items-start">
+                        <i class="fas fa-coins mt-1 mr-3 text-indigo-500"></i>
+                        <div>
+                            <p class="font-bold text-gray-800">設計費用 NT$ 200</p>
+                            <p>支援 LINE Pay / 信用卡支付</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <i class="fas fa-calendar-check mt-1 mr-3 text-indigo-500"></i>
+                        <div>
+                            <p class="font-bold text-gray-800">隔日供稿</p>
+                            <p>提供 2 款精心調教的設計</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start md:col-span-2">
+                        <i class="fas fa-gift mt-1 mr-3 text-pink-500"></i>
+                        <div>
+                            <p class="font-bold text-gray-800 text-pink-600">享 1 次修改機會，且製作 T 恤可全額折抵！</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-3xl shadow-sm border border-gray-100 p-8 mb-8">
+            <h2 class="text-lg font-bold mb-4 flex items-center">
+                <span class="bg-indigo-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs mr-2">1</span>
+                請輸入您希望的設計
+            </h2>
+            
+            <div class="relative">
+                <textarea 
+                    class="w-full border-2 border-gray-100 rounded-2xl p-5 text-gray-700 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none h-48 transition-all"
+                    placeholder="您的描述越清楚，設計就會越接近您的需要。
+例如：我想要一個適合「復古咖啡廳」的標誌，包含手沖壺與簡約的線條感，配色希望以大地色系為主..."
+                ></textarea>
+                <p class="mt-3 text-xs text-gray-400">
+                    <i class="fas fa-lightbulb mr-1 text-amber-400"></i> 提示：您可以描述風格（如：美式、日系）、元素、配色或想要傳達的感覺。
+                </p>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
+            <h2 class="text-lg font-bold mb-6 flex items-center">
+                <span class="bg-indigo-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs mr-2">2</span>
+                選擇付款方式並送出
+            </h2>
+
+            <div class="grid grid-cols-2 gap-4 mb-8">
+                <button class="flex items-center justify-center border-2 border-indigo-500 rounded-xl py-4 bg-indigo-50 text-indigo-700 font-bold hover:bg-indigo-100 transition-all">
+                    <i class="fab fa-line text-2xl mr-2 text-green-500"></i> LINE Pay
+                </button>
+                <button class="flex items-center justify-center border-2 border-gray-100 rounded-xl py-4 text-gray-600 font-bold hover:border-indigo-200 transition-all">
+                    <i class="fas fa-credit-card text-xl mr-2"></i> 信用卡
+                </button>
+            </div>
+
+            <button class="w-full bg-slate-900 text-white py-5 rounded-2xl font-bold text-xl hover:bg-black transition-all shadow-xl">
+                立即下單並送出需求
+            </button>
+            
+            <p class="text-center text-gray-400 text-xs mt-6">
+                提交後 LOGOless 設計團隊將開始作業，請留意您的會員信箱
+            </p>
+        </div>
+
+    </div>
+
+</body>
+</html>
