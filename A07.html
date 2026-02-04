@@ -9,8 +9,18 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap');
         body { font-family: 'Noto Sans TC', sans-serif; background-color: #f3f4f6; }
-        .tshirt-preview { background-image: url('https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&q=80&w=800'); background-size: cover; background-position: center; }
-    </div>
+        
+        /* 修正背景圖設定，確保高度撐開 */
+        .tshirt-preview { 
+            background-image: url('https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&q=80&w=800'); 
+            background-size: cover; 
+            background-position: center;
+            min-height: 400px; /* 確保容器有高度 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
 </head>
 <body class="py-12 px-6">
 
@@ -20,7 +30,7 @@
             <h1 class="text-2xl font-bold mb-4 text-gray-800 italic">您的設計需求回顧</h1>
             <div class="bg-indigo-50 p-5 rounded-2xl border-l-4 border-indigo-500">
                 <p class="text-indigo-900 leading-relaxed italic">
-                    「這裡會自動帶入客戶當初填寫的描述文字，例如：我想要一個適合馬拉松團體的標誌，包含跑步的人影與太陽...」
+                    「我想要一個適合馬拉松團體的標誌，包含跑步的人影與太陽，顏色希望偏向螢光橘...」
                 </p>
             </div>
         </div>
@@ -30,15 +40,15 @@
             <div class="bg-white rounded-3xl shadow-xl overflow-hidden group border-2 border-transparent hover:border-indigo-500 transition-all">
                 <div class="p-6 border-b flex justify-between items-center">
                     <span class="font-bold text-lg">提案 A: 現代極簡風</span>
-                    <span class="text-xs bg-gray-100 px-2 py-1 rounded text-gray-500 italic">方案 1: AI 生圖包 [cite: 7]</span>
+                    <span class="text-xs bg-gray-100 px-2 py-1 rounded text-gray-500 italic">方案 1: AI 生圖包</span>
                 </div>
-                <div class="aspect-[4/5] tshirt-preview relative flex items-center justify-center p-12">
+                <div class="tshirt-preview p-12">
                     <div class="w-1/2 drop-shadow-2xl">
-                        <img src="https://via.placeholder.com/400x400/fff/000?text=Design+A" alt="AI Design A" class="w-full mix-blend-multiply opacity-90">
+                        <img src="https://via.placeholder.com/400x400/000000/FFFFFF?text=DESIGN+A" alt="AI Design A" class="w-full mix-blend-multiply opacity-80">
                     </div>
                 </div>
                 <div class="p-6 bg-slate-50">
-                    <p class="text-sm text-gray-500 mb-6 italic">這款設計強調線條的流暢感，非常適合網版印刷，色彩飽滿且邊緣銳利。</p>
+                    <p class="text-sm text-gray-500 mb-6 italic">這款設計強調線條的流暢感，非常適合網版印刷，色彩飽和且邊緣銳利。</p>
                     <button class="w-full bg-indigo-600 text-white py-4 rounded-xl font-bold text-lg hover:bg-indigo-700 shadow-lg shadow-indigo-200 transition-all flex items-center justify-center">
                         <i class="fas fa-shopping-cart mr-2"></i> 一鍵生成 T 恤 (折抵 $200)
                     </button>
@@ -48,15 +58,15 @@
             <div class="bg-white rounded-3xl shadow-xl overflow-hidden group border-2 border-transparent hover:border-indigo-500 transition-all">
                 <div class="p-6 border-b flex justify-between items-center">
                     <span class="font-bold text-lg">提案 B: 復古手繪風</span>
-                    <span class="text-xs bg-gray-100 px-2 py-1 rounded text-gray-500 italic">經由設計師調教 [cite: 8]</span>
+                    <span class="text-xs bg-gray-100 px-2 py-1 rounded text-gray-500 italic">經由設計師調教</span>
                 </div>
-                <div class="aspect-[4/5] tshirt-preview relative flex items-center justify-center p-12">
+                <div class="tshirt-preview p-12">
                     <div class="w-1/2 drop-shadow-2xl">
-                        <img src="https://via.placeholder.com/400x400/fff/000?text=Design+B" alt="AI Design B" class="w-full mix-blend-multiply opacity-90">
+                        <img src="https://via.placeholder.com/400x400/000000/FFFFFF?text=DESIGN+B" alt="AI Design B" class="w-full mix-blend-multiply opacity-80">
                     </div>
                 </div>
                 <div class="p-6 bg-slate-50">
-                    <p class="text-sm text-gray-500 mb-6 italic">這款設計加入了手繪的紋理細節，由專業人員進行 AI 基礎清理 [cite: 8]，呈現出獨特的文青質感。</p>
+                    <p class="text-sm text-gray-500 mb-6 italic">這款設計加入了手繪的紋理細節，呈現出獨特的文藝質感與視覺深度。</p>
                     <button class="w-full bg-slate-900 text-white py-4 rounded-xl font-bold text-lg hover:bg-black shadow-lg shadow-gray-200 transition-all flex items-center justify-center">
                         <i class="fas fa-shopping-cart mr-2"></i> 一鍵生成 T 恤 (折抵 $200)
                     </button>
@@ -64,32 +74,3 @@
             </div>
 
         </div>
-
-        <div class="mt-12 text-center text-gray-500">
-            <p class="mb-4">對兩款設計都不滿意？您還有 <strong>1 次修改機會</strong></p>
-            <button class="text-indigo-600 font-bold underline hover:text-indigo-800">聯繫設計師進行微調</button>
-        </div>
-
-        <div class="mt-20 border-t pt-10 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-            <div class="p-4">
-                <i class="fas fa-check-double text-emerald-500 mb-2"></i>
-                <p class="text-xs font-bold italic">解析度檢核通過 [cite: 24]</p>
-            </div>
-            <div class="p-4">
-                <i class="fas fa-layer-group text-emerald-500 mb-2"></i>
-                <p class="text-xs font-bold italic">透明背景已處理 [cite: 24]</p>
-            </div>
-            <div class="p-4">
-                <i class="fas fa-palette text-emerald-500 mb-2"></i>
-                <p class="text-xs font-bold italic">色彩格式優化 [cite: 24]</p>
-            </div>
-            <div class="p-4">
-                <i class="fas fa-shipping-fast text-emerald-500 mb-2"></i>
-                <p class="text-xs font-bold italic">可直接送往生產排程 </p>
-            </div>
-        </div>
-
-    </div>
-
-</body>
-</html>
