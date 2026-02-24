@@ -20,9 +20,18 @@
             color: var(--text-main);
             font-family: 'Noto Sans TC', sans-serif;
             display: flex;
+            flex-direction: column; /* 改為垂直排列 */
+            min-height: 100vh; /* 確保高度至少佔滿螢幕 */
+        }
+
+        /* 撐開中間區域，確保 footer 被推到底部 */
+        .main-content {
+            flex: 1;
+            display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            width: 100%;
+            padding: 40px 0;
         }
 
         .form-container {
@@ -152,7 +161,6 @@
             transform: scale(1);
         }
 
-        /* 八字預覽區塊樣式 */
         .bazi-preview {
             margin: 20px 0;
             padding: 20px;
@@ -231,55 +239,66 @@
             text-decoration: underline;
             font-size: 0.9rem;
         }
+
+        /* 頁腳樣式 */
+        footer {
+            padding: 40px 0;
+            border-top: 1px solid #e2ddd3;
+            text-align: center;
+            width: 100%;
+            background-color: var(--bg-color);
+        }
     </style>
 </head>
 <body>
 
-    <div class="form-container">
-        <h2>開啟你的自我探索</h2>
-        <p class="subtitle">輸入生辰，翻譯屬於你的生命語法</p>
+    <div class="main-content">
+        <div class="form-container">
+            <h2>開啟你的自我探索</h2>
+            <p class="subtitle">輸入生辰，翻譯屬於你的生命語法</p>
 
-        <form id="baziForm" onsubmit="event.preventDefault(); openModal();">
-            <div class="input-group">
-                <label for="birthday">出生日期</label>
-                <input type="date" id="birthday" name="birthday" required>
-            </div>
+            <form id="baziForm" onsubmit="event.preventDefault(); openModal();">
+                <div class="input-group">
+                    <label for="birthday">出生日期</label>
+                    <input type="date" id="birthday" name="birthday" required>
+                </div>
 
-            <div class="input-group">
-                <label for="birthtime">出生時辰</label>
-                <select id="birthtime" name="birthtime" required>
-                    <option value="" disabled selected>請選擇時辰</option>
-                    <option value="子">子時 (23:00 - 01:00)</option>
-                    <option value="丑">丑時 (01:00 - 03:00)</option>
-                    <option value="寅">寅時 (03:00 - 05:00)</option>
-                    <option value="卯">卯時 (05:00 - 07:00)</option>
-                    <option value="辰">辰時 (07:00 - 09:00)</option>
-                    <option value="巳">巳時 (09:00 - 11:00)</option>
-                    <option value="午">午時 (11:00 - 13:00)</option>
-                    <option value="未">未時 (13:00 - 15:00)</option>
-                    <option value="申">申時 (15:00 - 17:00)</option>
-                    <option value="酉">酉時 (17:00 - 19:00)</option>
-                    <option value="戌">戌時 (19:00 - 21:00)</option>
-                    <option value="亥">亥時 (21:00 - 23:00)</option>
-                </select>
-            </div>
+                <div class="input-group">
+                    <label for="birthtime">出生時辰</label>
+                    <select id="birthtime" name="birthtime" required>
+                        <option value="" disabled selected>請選擇時辰</option>
+                        <option value="子">子時 (23:00 - 01:00)</option>
+                        <option value="丑">丑時 (01:00 - 03:00)</option>
+                        <option value="寅">寅時 (03:00 - 05:00)</option>
+                        <option value="卯">卯時 (05:00 - 07:00)</option>
+                        <option value="辰">辰時 (07:00 - 09:00)</option>
+                        <option value="巳">巳時 (09:00 - 11:00)</option>
+                        <option value="午">午時 (11:00 - 13:00)</option>
+                        <option value="未">未時 (13:00 - 15:00)</option>
+                        <option value="申">申時 (15:00 - 17:00)</option>
+                        <option value="酉">酉時 (17:00 - 19:00)</option>
+                        <option value="戌">戌時 (19:00 - 21:00)</option>
+                        <option value="亥">亥時 (21:00 - 23:00)</option>
+                    </select>
+                </div>
 
-            <div class="input-group">
-                <label>性別</label>
-                <div class="gender-options">
-                    <div style="flex:1">
-                        <input type="radio" id="male" name="gender" value="male" checked>
-                        <label for="male" class="gender-label">男士</label>
-                    </div>
-                    <div style="flex:1">
-                        <input type="radio" id="female" name="gender" value="female">
-                        <label for="female" class="gender-label">女士</label>
+                <div class="input-group">
+                    <label>性別</label>
+                    <div class="gender-options">
+                        <div style="flex:1">
+                            <input type="radio" id="male" name="gender" value="male" checked>
+                            <label for="male" class="gender-label">男士</label>
+                        </div>
+                        <div style="flex:1">
+                            <input type="radio" id="female" name="gender" value="female">
+                            <label for="female" class="gender-label">女士</label>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <button type="submit" class="btn-submit">開始解讀自我</button>
-        </form>
+                <button type="submit" class="btn-submit">開始解讀自我</button>
+            </form>
+        </div>
     </div>
 
     <div id="paymentModal" class="modal-overlay" onclick="closeModal(event)">
@@ -320,18 +339,25 @@
         </div>
     </div>
 
+    <footer>
+        <div style="font-size: 0.9rem; letter-spacing: 2px; color: #8c7662; margin-bottom: 10px;">
+            Powered by <strong>LOGOless AI Lab</strong>
+        </div>
+        <div style="font-size: 0.8rem; color: #aaa; line-height: 1.6;">
+            © 2026 LOGOless Personal Awareness Project<br>
+            探索科技與內在心靈的交點
+        </div>
+    </footer>
+
     <script>
         const modal = document.getElementById('paymentModal');
 
         function openModal() {
-            // 獲取表單輸入值
             const dateVal = document.getElementById('birthday').value;
             const hourVal = document.getElementById('birthtime').value;
             
             if(dateVal) {
                 const dateObj = new Date(dateVal);
-                // 這裡僅做簡單的日期顯示預覽，強化信任感
-                // 真正的八字天干地支計算建議在 API 端完成後回傳
                 document.getElementById('p-year').innerText = dateObj.getFullYear() + "年";
                 document.getElementById('p-month').innerText = (dateObj.getMonth() + 1) + "月";
                 document.getElementById('p-day').innerText = dateObj.getDate() + "日";
