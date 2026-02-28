@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI 戰略導航報告 | LOGOless AI Lab</title>
+    <title>AI 專屬性格分析報告 | LOGOless AI Lab</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
-            --bg-color: #f7f6f2;
+            --bg-color: #f9f7f2;
             --card-bg: #ffffff;
-            --text-main: #2a2a2a;
-            --accent: #7a6a53;
+            --text-main: #33322e;
+            --accent: #8c7662;
             --border: #e0ddd5;
         }
 
@@ -20,15 +20,17 @@
             background-color: var(--bg-color);
             color: var(--text-main);
             font-family: 'Noto Sans TC', sans-serif;
+            line-height: 1.8;
+            padding: 20px;
             overflow-x: hidden;
         }
 
-        /* --- 1. AI 載入動畫樣式 --- */
+        /* --- 1. AI 載入動畫層樣式 --- */
         #loader-overlay {
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background: #f9f7f2;
+            background: var(--bg-color);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -40,120 +42,148 @@
         .spinner {
             width: 50px;
             height: 50px;
-            border: 3px solid rgba(122, 106, 83, 0.1);
+            border: 3px solid rgba(140, 118, 98, 0.1);
             border-top: 3px solid var(--accent);
             border-radius: 50%;
             animation: spin 1s linear infinite;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
         .loading-text {
             font-family: 'Noto Serif TC', serif;
-            font-size: 1rem;
+            font-size: 1.1rem;
             color: var(--accent);
             letter-spacing: 2px;
+            font-weight: 700;
         }
 
         .loading-steps {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: #aaa;
-            margin-top: 10px;
+            margin-top: 12px;
             height: 20px;
+            letter-spacing: 1px;
         }
 
         /* --- 2. 報告本體樣式 (預設隱藏) --- */
         .report-container {
             max-width: 800px;
-            margin: 40px auto;
+            margin: 20px auto;
             background: var(--card-bg);
             padding: 50px;
-            border-radius: 4px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-            opacity: 0; /* 初始隱藏，由 JS 開啟 */
+            border-radius: 12px;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.03);
+            opacity: 0; /* 初始隱藏 */
             transition: opacity 1s ease;
         }
 
-        /* 以下維持您原本喜歡的報告樣式 */
-        header { text-align: left; margin-bottom: 40px; border-bottom: 2px solid var(--text-main); padding-bottom: 15px; display: flex; justify-content: space-between; align-items: flex-end; }
-        h1 { font-family: 'Noto Serif TC', serif; font-size: 1.6rem; margin: 0; }
-        .section-title { font-family: 'Noto Serif TC', serif; font-size: 1.2rem; font-weight: 700; margin-bottom: 20px; border-left: 4px solid var(--accent); padding-left: 12px; background: #faf9f6; }
-        .chart-box { height: 350px; margin-bottom: 30px; }
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
-        .full { grid-column: 1 / -1; }
-        .roadmap-item { display: flex; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px dashed #eee; }
-        .roadmap-date { flex: 0 0 100px; font-weight: 700; color: var(--accent); font-family: 'Noto Serif TC', serif; }
-        footer { text-align: center; margin-top: 40px; font-size: 0.8rem; color: #bbb; }
+        /* 保留原有的標題與內容樣式 */
+        header { text-align: center; margin-bottom: 50px; border-bottom: 1px solid var(--border); padding-bottom: 30px; }
+        .lab-tag { font-size: 0.8rem; letter-spacing: 2px; color: var(--accent); margin-bottom: 8px; display: block; }
+        h1 { font-family: 'Noto Serif TC', serif; font-size: 1.8rem; margin: 0; }
+        .section { margin-bottom: 50px; }
+        .section-title { font-family: 'Noto Serif TC', serif; font-size: 1.3rem; color: var(--text-main); border-bottom: 1px solid var(--accent); padding-bottom: 8px; margin-bottom: 25px; }
+        .chart-container { position: relative; margin: 0 auto 30px; height: 380px; width: 100%; max-width: 450px; }
+        .analysis-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+        .full-width { grid-column: 1 / -1; }
+        h3 { font-family: 'Noto Serif TC', serif; font-size: 1.1rem; margin-top: 0; color: var(--accent); }
+        .content-p { font-size: 1rem; color: #555; text-align: justify; margin: 0; }
+        ul { padding-left: 18px; margin: 10px 0 0 0; }
+        li { font-size: 0.95rem; color: #555; margin-bottom: 8px; }
+        .suggestion-box { background: #fdfbf7; padding: 25px; border-radius: 8px; border-left: 3px solid var(--accent); }
+        .timeline { background: #fafafa; padding: 25px; border-radius: 8px; }
+        .timeline-item { display: flex; margin-bottom: 20px; align-items: flex-start; }
+        .time-label { flex: 0 0 100px; font-weight: 500; color: var(--accent); font-family: 'Noto Serif TC', serif; }
+        .time-desc { flex: 1; font-size: 0.95rem; border-left: 1px solid var(--border); padding-left: 20px; }
+        footer { text-align: center; margin-top: 50px; font-size: 0.85rem; color: #bbb; border-top: 1px solid var(--border); padding-top: 20px; }
 
-        @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } .report-container { padding: 30px 20px; } }
+        @media (max-width: 650px) { .analysis-grid { grid-template-columns: 1fr; } .report-container { padding: 30px 20px; } .chart-container { height: 320px; } }
     </style>
 </head>
 <body>
 
     <div id="loader-overlay">
         <div class="spinner"></div>
-        <div class="loading-text">AI Lab 正在解析您的特質維度</div>
-        <div id="step-text" class="loading-steps">正在同步五行能量...</div>
+        <div class="loading-text">LOGOless AI Lab 深度解析中</div>
+        <div id="step-text" class="loading-steps">正在提取生辰干支...</div>
     </div>
 
     <div class="report-container" id="main-report">
         <header>
-            <div>
-                <div style="color: var(--accent); font-weight: 700; font-size: 0.9rem;">LOGOless AI Lab</div>
-                <h1>性格與戰略導航報告</h1>
-            </div>
-            <div style="font-size: 0.8rem; color: #aaa;">2026.02.28</div>
+            <span class="lab-tag">LOGOless AI Lab</span>
+            <h1>屬於你的性格報告</h1>
+            <p style="color: #aaa; font-size: 0.9rem;">你好，這是為你細心翻譯的內在密碼</p>
         </header>
 
         <div class="section">
-            <div class="section-title">01 能量維度分析</div>
-            <div class="chart-box">
+            <div class="section-title">01 你的能量分布圖</div>
+            <div class="chart-container">
                 <canvas id="radarChart"></canvas>
             </div>
+            <p style="font-size: 0.95rem; color: #888; text-align: center; font-style: italic;">
+                這張圖表展現了你內在五種能量的流動，幫助你更直覺地看見自己。
+            </p>
         </div>
 
-        <div class="grid">
-            <div class="section full">
-                <div class="section-title">02 核心特質</div>
-                <p>您的能量結構呈現顯著的「深水型」特徵（90%）。這賦予您極致的洞察力與戰略耐性。您擅長拆解複雜邏輯，能敏銳察覺環境中微小的風險與契機。</p>
+        <div class="analysis-grid">
+            <div class="section full-width">
+                <div class="section-title">02 走進你的內心世界</div>
+                <p class="content-p">
+                    你的本質像是一潭深沉而溫潤的湖水，擁有極強的洞察力與智慧。你是一個細膩的觀察者，總是能察覺到別人忽略的微小情緒或環境變化。在人群中，你不一定是最喧鬧的那一個，但卻是最懂節奏、最有彈性的人。你喜歡深度思考，比起表面的繁華，你更在乎靈魂的真實感。
+                </p>
             </div>
 
             <div class="section">
-                <div class="section-title">03 核心優勢</div>
-                <ul style="padding-left: 18px;">
-                    <li><strong>深度洞察：</strong> 在資訊不對稱中定位核心。</li>
-                    <li><strong>策略韌性：</strong> 高壓下保持冷靜，以柔克剛。</li>
+                <div class="section-title">03 那些閃閃發光的特質</div>
+                <h3>◆ 你的天賦與溫柔</h3>
+                <ul>
+                    <li><strong>深層的理解力：</strong> 有著看透事情本質的直覺，大家總覺得你很懂。</li>
+                    <li><strong>極佳的韌性：</strong> 面對壓力時，你懂得如何像水一樣化解。</li>
+                    <li><strong>優雅的沉穩：</strong> 在混亂中，你的冷靜常成為周遭安心的力量來源。</li>
                 </ul>
             </div>
 
             <div class="section">
-                <div class="section-title">04 執行瓶頸</div>
-                <ul style="padding-left: 18px;">
-                    <li><strong>行動延遲：</strong> 易因追求邏輯完美錯失時機。</li>
-                    <li><strong>擴散力弱：</strong> 思想具深度但缺乏感性傳播。</li>
+                <div class="section-title">04 需要溫柔呵護的部分</div>
+                <h3>◆ 那些讓你感到疲累的事</h3>
+                <ul>
+                    <li><strong>過度的思慮：</strong> 有時因為想得太深，反而讓前進步伐變得沉重。</li>
+                    <li><strong>能量的損耗：</strong> 面對熱鬧社交或瑣事時，電力會消失得很快。</li>
                 </ul>
             </div>
 
-            <div class="section full">
-                <div class="section-title">05 2026 行動地圖</div>
-                <div class="roadmap-item">
-                    <div class="roadmap-date">03 MAR</div>
-                    <div class="roadmap-desc"><strong>社交窗口：</strong> 適合進行河輪晚宴，將隱性人脈顯性化。</div>
+            <div class="section full-width">
+                <div class="section-title">05 給你的生活小貼士</div>
+                <div class="suggestion-box">
+                    <p class="content-p">
+                        親愛的，你不必強迫自己變得很圓滑或很熱情。<strong>「順著你的心流走」</strong>就是最好的生活方式。當你感到迷惘時，試著遠離人群，給自己一點獨處空間。
+                    </p>
                 </div>
-                <div class="roadmap-item">
-                    <div class="roadmap-date">10 OCT</div>
-                    <div class="roadmap-desc"><strong>能量修復：</strong> 規劃自然行程（如上高地靜修），修復思考損耗。</div>
+            </div>
+
+            <div class="section full-width">
+                <div class="section-title">06 2026 年的小小導航</div>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="time-label">春日三月</div>
+                        <div class="time-desc">適合與老朋友敘舊、在水邊聚會的好時節。像是參加船上晚餐，能讓心情綻放。</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="time-label">秋日十月</div>
+                        <div class="time-desc">適合走向自然。去一趟山林或上高地走走，讓大地的能量沉澱心靈。</div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <footer>© 2026 LOGOless AI Lab | 客觀分析 · 戰略導航</footer>
+        <footer>© 2026 LOGOless AI Lab | 謝謝你，與我們一起探索更好的自己</footer>
     </div>
 
     <script>
-        // 1. 載入動畫邏輯
-        const steps = ["正在提取生辰干支...", "計算五行能量分佈...", "匹配 2026 戰略週期...", "生成導師級建議..."];
+        // 1. 動態文字邏輯
+        const steps = ["正在提取生辰干支...", "計算五行能量分佈...", "匹配 2026 戰略週期...", "生成專屬解讀內容..."];
         let currentStep = 0;
         const stepElement = document.getElementById('step-text');
 
@@ -164,38 +194,53 @@
             }
         }, 800);
 
-        // 2. 顯示報告並渲染圖表
+        // 2. 顯示報告並初始化圖表
         window.onload = function() {
             setTimeout(() => {
-                // 停止進度條並隱藏 Overlay
                 clearInterval(stepInterval);
-                document.getElementById('loader-overlay').style.opacity = '0';
+                const loader = document.getElementById('loader-overlay');
+                const report = document.getElementById('main-report');
+                
+                loader.style.opacity = '0'; // 動畫層漸隱
                 
                 setTimeout(() => {
-                    document.getElementById('loader-overlay').style.display = 'none';
-                    document.getElementById('main-report').style.opacity = '1';
-                    renderChart(); // 顯示報告後才畫圖，確保動畫順暢
+                    loader.style.display = 'none';
+                    report.style.opacity = '1'; // 報告本體漸顯
+                    renderRadarChart(); // 顯示後才渲染圖表
                 }, 800);
-            }, 3500); // 設定 3.5 秒的分析儀式感
+            }, 3500); // 總共設定 3.5 秒的運算儀式感
         };
 
-        function renderChart() {
+        function renderRadarChart() {
             const ctx = document.getElementById('radarChart').getContext('2d');
             new Chart(ctx, {
                 type: 'radar',
                 data: {
-                    labels: ['水 (深度)', '木 (創新)', '火 (傳遞)', '土 (穩固)', '金 (執行)'],
+                    labels: ['水 (深度)', '木 (生長)', '火 (熱情)', '土 (穩重)', '金 (果斷)'],
                     datasets: [{
-                        data: [90, 40, 10, 10, 20],
-                        backgroundColor: 'rgba(122, 106, 83, 0.15)',
-                        borderColor: 'rgba(122, 106, 83, 1)',
-                        borderWidth: 1.5,
-                        pointBackgroundColor: '#2a2a2a',
-                        pointRadius: 3
+                        label: '能量比例 %',
+                        data: [90, 40, 10, 10, 20], 
+                        backgroundColor: 'rgba(140, 118, 98, 0.15)', 
+                        borderColor: 'rgba(140, 118, 98, 1)',
+                        borderWidth: 2,
+                        pointBackgroundColor: 'rgba(140, 118, 98, 1)',
+                        pointRadius: 4
                     }]
                 },
                 options: {
-                    scales: { r: { suggestedMin: 0, suggestedMax: 100, ticks: { display: false }, grid: { color: '#eee' }, pointLabels: { font: { size: 13, weight: '500' } } } },
+                    scales: {
+                        r: {
+                            angleLines: { color: '#e0ddd5' },
+                            suggestedMin: 0,
+                            suggestedMax: 100,
+                            ticks: { display: false },
+                            grid: { color: '#e0ddd5' },
+                            pointLabels: {
+                                font: { family: 'Noto Sans TC', size: 14, weight: '500' },
+                                color: '#33322e'
+                            }
+                        }
+                    },
                     plugins: { legend: { display: false } },
                     maintainAspectRatio: false
                 }
