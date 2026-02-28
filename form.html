@@ -6,13 +6,13 @@
     <title>探索內在 | 輸入生辰</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
-        /* ... 此處維持你原有的 CSS 樣式不變，確保視覺一致性 ... */
         :root {
             --bg-color: #f9f7f2;
-            --text-main: #33322e;
+            --text-main: #2a2a2a; /* 稍微加深顏色以提升閱讀對比度 */
             --accent-color: #8c7662;
             --input-bg: #ffffff;
             --button-bg: #4a4a4a;
+            --button-hover: #2d2d2d;
         }
 
         body {
@@ -57,37 +57,38 @@
 
         .input-group {
             text-align: left;
-            margin-bottom: 20px;
+            margin-bottom: 25px; /* 增加間距讓手機點選更輕鬆 */
         }
 
         label {
             display: block;
-            font-size: 1rem;
-            margin-bottom: 8px;
+            font-size: 0.95rem;
+            margin-bottom: 10px;
             font-weight: 500;
+            color: #555;
         }
 
         input[type="date"],
         select {
             width: 100%;
-            padding: 12px;
+            padding: 14px; /* 加大觸控區域 */
             font-size: 1rem;
-            border: 1px solid #d1cdbf;
-            border-radius: 6px;
+            border: 1.5px solid #d1cdbf;
+            border-radius: 8px;
             background-color: var(--input-bg);
             color: var(--text-main);
             box-sizing: border-box;
-            appearance: none;
-            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20fill%3D%22%238c7662%22%20d%3D%22M7%2010l5%205%205-5z%22%2F%3E%3C%2Fsvg%3E");
-            background-repeat: no-repeat;
-            background-position: right 12px center;
-            background-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--accent-color);
         }
 
         .gender-options {
             display: flex;
             gap: 15px;
-            margin-top: 5px;
         }
 
         input[type="radio"] { display: none; }
@@ -95,9 +96,9 @@
         .gender-label {
             display: block;
             flex: 1;
-            padding: 12px;
-            border: 1px solid #d1cdbf;
-            border-radius: 6px;
+            padding: 14px;
+            border: 1.5px solid #d1cdbf;
+            border-radius: 8px;
             cursor: pointer;
             text-align: center;
             font-size: 0.95rem;
@@ -111,21 +112,39 @@
             border-color: var(--accent-color);
         }
 
+        /* --- 提交按鈕樣式與回饋 --- */
         .btn-submit {
             width: 100%;
-            margin-top: 25px;
-            padding: 15px;
+            margin-top: 30px;
+            padding: 16px;
             background-color: var(--button-bg);
             color: white;
             border: none;
-            border-radius: 4px;
+            border-radius: 8px;
             font-size: 1.1rem;
             letter-spacing: 2px;
             cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.2s ease;
+            -webkit-tap-highlight-color: transparent; /* 移除手機預設點擊高亮 */
         }
 
-        /* --- 彈窗樣式 --- */
+        .btn-submit:active {
+            transform: scale(0.97); /* 模擬實體按鍵感 */
+            background-color: var(--button-hover);
+        }
+
+        /* --- 手機版置底邏輯 --- */
+        @media (max-width: 600px) {
+            .btn-submit {
+                position: sticky;
+                bottom: 20px; /* 固定在距離底部 20px 處 */
+                z-index: 10;
+                box-shadow: 0 -5px 20px rgba(0,0,0,0.05), 0 10px 20px rgba(0,0,0,0.15);
+            }
+        }
+
+        /* --- 彈窗與支付按鈕邏輯 --- */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0;
@@ -155,6 +174,20 @@
         .modal-overlay.active { display: flex; opacity: 1; }
         .modal-overlay.active .modal-card { transform: scale(1); }
 
+        .btn-pay {
+            width: 100%;
+            padding: 15px;
+            background: #2d2d2d;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+
+        .btn-pay:active { transform: scale(0.97); }
+
         .bazi-preview {
             margin: 15px 0;
             padding: 15px;
@@ -163,30 +196,15 @@
             border: 1px solid #e2ddd3;
         }
 
-        .bazi-title {
-            font-size: 0.8rem;
-            color: var(--accent-color);
-            margin-bottom: 12px;
-            letter-spacing: 1px;
-        }
-
         .bazi-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 8px;
         }
 
-        .bazi-column {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .pillar-label { font-size: 0.7rem; color: #999; }
-
         .pillar-value {
             font-family: 'Noto Serif TC', serif;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 700;
             color: var(--text-main);
             background: #fff;
@@ -195,42 +213,10 @@
             border: 1px solid #dcd7ca;
         }
 
-        .price-section { margin: 15px 0; }
-
-        .price-val { font-size: 2rem; font-weight: 700; }
-
-        .price-currency {
-            font-size: 1rem;
-            color: var(--accent-color);
-            margin-right: 3px;
-        }
-
-        .btn-pay {
-            width: 100%;
-            padding: 14px;
-            background: #2d2d2d;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-size: 1rem;
-            cursor: pointer;
-        }
-
-        .btn-close {
-            background: none;
-            border: none;
-            color: #999;
-            margin-top: 12px;
-            cursor: pointer;
-            text-decoration: underline;
-            font-size: 0.85rem;
-        }
-
         footer {
-            padding: 30px 0;
+            padding: 40px 0;
             border-top: 1px solid #e2ddd3;
             text-align: center;
-            width: 100%;
             background-color: var(--bg-color);
         }
     </style>
@@ -292,36 +278,33 @@
             <p style="font-size: 0.85rem; color: #888; margin-bottom: 15px;">系統已根據您的生辰排定四柱基底</p>
 
             <div class="bazi-preview">
-                <div class="bazi-title">您的生辰八字預覽</div>
                 <div class="bazi-grid">
                     <div class="bazi-column">
-                        <span class="pillar-label">時柱</span>
+                        <span style="font-size: 0.7rem; color: #999;">時柱</span>
                         <span id="p-hour" class="pillar-value">？</span>
                     </div>
                     <div class="bazi-column">
-                        <span class="pillar-label">日柱</span>
+                        <span style="font-size: 0.7rem; color: #999;">日柱</span>
                         <span id="p-day" class="pillar-value">？</span>
                     </div>
                     <div class="bazi-column">
-                        <span class="pillar-label">月柱</span>
+                        <span style="font-size: 0.7rem; color: #999;">月柱</span>
                         <span id="p-month" class="pillar-value">？</span>
                     </div>
                     <div class="bazi-column">
-                        <span class="pillar-label">年柱</span>
+                        <span style="font-size: 0.7rem; color: #999;">年柱</span>
                         <span id="p-year" class="pillar-value">？</span>
                     </div>
                 </div>
             </div>
 
-            <div class="price-section">
-                <span style="font-size: 0.85rem; color: #666; display: block; margin-bottom: 8px;">解鎖「核心性格解析」與「2026運勢」</span>
-                <span class="price-currency">NT$</span><span class="price-val">100</span>
+            <div class="price-section" style="margin: 20px 0;">
+                <span style="font-size: 0.85rem; color: #666; display: block; margin-bottom: 8px;">解鎖完整報告與 2026 戰略導航</span>
+                <span style="color: var(--accent-color); font-size: 1rem;">NT$</span><span style="font-size: 2rem; font-weight: 700;">100</span>
             </div>
 
             <button class="btn-pay" onclick="window.location.href='output.html'">立即支付並開啟完整報告</button>
-            
-            <br>
-            <button class="btn-close" onclick="closeModal(event)">返回修改資料</button>
+            <button class="btn-close" style="background: none; border: none; color: #999; margin-top: 15px; cursor: pointer; text-decoration: underline; font-size: 0.85rem;" onclick="closeModal(event)">返回修改資料</button>
         </div>
     </div>
 
@@ -330,7 +313,7 @@
             Powered by <strong>LOGOless AI Lab</strong>
         </div>
         <div style="font-size: 0.75rem; color: #aaa; line-height: 1.5;">
-            © 2026 LOGOless Personal Awareness Project<br>
+            © 2026 LOGOless AI Lab<br>
             探索科技與內在心靈的交點
         </div>
     </footer>
@@ -360,8 +343,4 @@
             modal.classList.remove('active');
             setTimeout(() => {
                 modal.style.display = 'none';
-            }, 300);
-        }
-    </script>
-</body>
-</html>
+            },
