@@ -8,11 +8,11 @@
     <style>
         :root {
             --bg-color: #f9f7f2;
-            --text-main: #2a2a2a; /* 稍微加深顏色以提升閱讀對比度 */
+            --text-main: #2a2a2a;
             --accent-color: #8c7662;
             --input-bg: #ffffff;
             --button-bg: #4a4a4a;
-            --button-hover: #2d2d2d;
+            --border-color: #d1cdbf;
         }
 
         body {
@@ -57,7 +57,7 @@
 
         .input-group {
             text-align: left;
-            margin-bottom: 25px; /* 增加間距讓手機點選更輕鬆 */
+            margin-bottom: 25px;
         }
 
         label {
@@ -65,24 +65,22 @@
             font-size: 0.95rem;
             margin-bottom: 10px;
             font-weight: 500;
-            color: #555;
         }
 
         input[type="date"],
         select {
             width: 100%;
-            padding: 14px; /* 加大觸控區域 */
+            padding: 14px;
             font-size: 1rem;
-            border: 1.5px solid #d1cdbf;
+            border: 1.5px solid var(--border-color);
             border-radius: 8px;
             background-color: var(--input-bg);
             color: var(--text-main);
             box-sizing: border-box;
-            transition: border-color 0.3s;
+            outline: none;
         }
 
         input:focus, select:focus {
-            outline: none;
             border-color: var(--accent-color);
         }
 
@@ -97,13 +95,13 @@
             display: block;
             flex: 1;
             padding: 14px;
-            border: 1.5px solid #d1cdbf;
+            border: 1.5px solid var(--border-color);
             border-radius: 8px;
             cursor: pointer;
             text-align: center;
             font-size: 0.95rem;
             background: white;
-            transition: all 0.2s ease;
+            transition: all 0.2s;
         }
 
         input[type="radio"]:checked + .gender-label {
@@ -112,7 +110,7 @@
             border-color: var(--accent-color);
         }
 
-        /* --- 提交按鈕樣式與回饋 --- */
+        /* 提交按鈕與手機置底邏輯 */
         .btn-submit {
             width: 100%;
             margin-top: 30px;
@@ -125,26 +123,23 @@
             letter-spacing: 2px;
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: all 0.2s ease;
-            -webkit-tap-highlight-color: transparent; /* 移除手機預設點擊高亮 */
+            transition: transform 0.1s, background-color 0.2s;
         }
 
         .btn-submit:active {
-            transform: scale(0.97); /* 模擬實體按鍵感 */
-            background-color: var(--button-hover);
+            transform: scale(0.97);
         }
 
-        /* --- 手機版置底邏輯 --- */
         @media (max-width: 600px) {
             .btn-submit {
                 position: sticky;
-                bottom: 20px; /* 固定在距離底部 20px 處 */
+                bottom: 20px;
                 z-index: 10;
-                box-shadow: 0 -5px 20px rgba(0,0,0,0.05), 0 10px 20px rgba(0,0,0,0.15);
+                box-shadow: 0 -5px 20px rgba(0,0,0,0.05), 0 10px 20px rgba(0,0,0,0.1);
             }
         }
 
-        /* --- 彈窗與支付按鈕邏輯 --- */
+        /* 彈窗樣式 */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0;
@@ -174,22 +169,8 @@
         .modal-overlay.active { display: flex; opacity: 1; }
         .modal-overlay.active .modal-card { transform: scale(1); }
 
-        .btn-pay {
-            width: 100%;
-            padding: 15px;
-            background: #2d2d2d;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: transform 0.1s;
-        }
-
-        .btn-pay:active { transform: scale(0.97); }
-
         .bazi-preview {
-            margin: 15px 0;
+            margin: 20px 0;
             padding: 15px;
             background: #f4f1ea;
             border-radius: 8px;
@@ -202,22 +183,34 @@
             gap: 8px;
         }
 
+        .pillar-column { display: flex; flex-direction: column; gap: 5px; }
+        .pillar-label { font-size: 0.7rem; color: #999; }
         .pillar-value {
             font-family: 'Noto Serif TC', serif;
             font-size: 1.1rem;
             font-weight: 700;
-            color: var(--text-main);
-            background: #fff;
-            padding: 8px 4px;
+            background: white;
+            padding: 8px 0;
             border-radius: 4px;
             border: 1px solid #dcd7ca;
+        }
+
+        .btn-pay {
+            width: 100%;
+            padding: 15px;
+            background: #2d2d2d;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 15px;
         }
 
         footer {
             padding: 40px 0;
             border-top: 1px solid #e2ddd3;
             text-align: center;
-            background-color: var(--bg-color);
         }
     </style>
 </head>
@@ -228,15 +221,15 @@
             <h2>開啟你的自我探索</h2>
             <p class="subtitle">輸入生辰，翻譯屬於你的生命語法</p>
 
-            <form id="baziForm" onsubmit="event.preventDefault(); openModal();">
+            <form id="baziForm">
                 <div class="input-group">
                     <label for="birthday">出生日期</label>
-                    <input type="date" id="birthday" name="birthday" required>
+                    <input type="date" id="birthday" required>
                 </div>
 
                 <div class="input-group">
                     <label for="birthtime">出生時辰</label>
-                    <select id="birthtime" name="birthtime" required>
+                    <select id="birthtime" required>
                         <option value="" disabled selected>請選擇時辰</option>
                         <option value="子">子時 (23:00 - 01:00)</option>
                         <option value="丑">丑時 (01:00 - 03:00)</option>
@@ -267,80 +260,90 @@
                     </div>
                 </div>
 
-                <button type="submit" class="btn-submit">開始解讀自我</button>
+                <button type="button" class="btn-submit" onclick="handleFormSubmit()">開始解讀自我</button>
             </form>
         </div>
     </div>
 
-    <div id="paymentModal" class="modal-overlay" onclick="closeModal(event)">
+    <div id="paymentModal" class="modal-overlay" onclick="closeModal()">
         <div class="modal-card" onclick="event.stopPropagation()">
-            <h3 style="font-family: 'Noto Serif TC', serif; font-size: 1.3rem; margin-bottom: 5px;">命盤初步成形</h3>
+            <h3 style="font-family: 'Noto Serif TC', serif; margin-bottom: 5px;">命盤初步成形</h3>
             <p style="font-size: 0.85rem; color: #888; margin-bottom: 15px;">系統已根據您的生辰排定四柱基底</p>
 
             <div class="bazi-preview">
                 <div class="bazi-grid">
-                    <div class="bazi-column">
-                        <span style="font-size: 0.7rem; color: #999;">時柱</span>
+                    <div class="pillar-column">
+                        <span class="pillar-label">時柱</span>
                         <span id="p-hour" class="pillar-value">？</span>
                     </div>
-                    <div class="bazi-column">
-                        <span style="font-size: 0.7rem; color: #999;">日柱</span>
+                    <div class="pillar-column">
+                        <span class="pillar-label">日柱</span>
                         <span id="p-day" class="pillar-value">？</span>
                     </div>
-                    <div class="bazi-column">
-                        <span style="font-size: 0.7rem; color: #999;">月柱</span>
+                    <div class="pillar-column">
+                        <span class="pillar-label">月柱</span>
                         <span id="p-month" class="pillar-value">？</span>
                     </div>
-                    <div class="bazi-column">
-                        <span style="font-size: 0.7rem; color: #999;">年柱</span>
+                    <div class="pillar-column">
+                        <span class="pillar-label">年柱</span>
                         <span id="p-year" class="pillar-value">？</span>
                     </div>
                 </div>
             </div>
 
-            <div class="price-section" style="margin: 20px 0;">
+            <div style="margin: 20px 0;">
                 <span style="font-size: 0.85rem; color: #666; display: block; margin-bottom: 8px;">解鎖完整報告與 2026 戰略導航</span>
-                <span style="color: var(--accent-color); font-size: 1rem;">NT$</span><span style="font-size: 2rem; font-weight: 700;">100</span>
+                <span style="color: var(--accent-color);">NT$</span><span style="font-size: 2rem; font-weight: 700;">100</span>
             </div>
 
             <button class="btn-pay" onclick="window.location.href='output.html'">立即支付並開啟完整報告</button>
-            <button class="btn-close" style="background: none; border: none; color: #999; margin-top: 15px; cursor: pointer; text-decoration: underline; font-size: 0.85rem;" onclick="closeModal(event)">返回修改資料</button>
+            <button style="background:none; border:none; color:#999; margin-top:15px; cursor:pointer; text-decoration:underline; font-size:0.85rem;" onclick="closeModal()">返回修改資料</button>
         </div>
     </div>
 
     <footer>
-        <div style="font-size: 0.85rem; letter-spacing: 1px; color: #8c7662; margin-bottom: 8px;">
-            Powered by <strong>LOGOless AI Lab</strong>
-        </div>
-        <div style="font-size: 0.75rem; color: #aaa; line-height: 1.5;">
-            © 2026 LOGOless AI Lab<br>
-            探索科技與內在心靈的交點
-        </div>
+        <div style="font-size: 0.85rem; color: #8c7662; margin-bottom: 8px;">Powered by <strong>LOGOless AI Lab</strong></div>
+        <div style="font-size: 0.75rem; color: #aaa;">© 2026 LOGOless Personal Awareness Project</div>
     </footer>
 
     <script>
-        const modal = document.getElementById('paymentModal');
-
-        function openModal() {
-            const dateVal = document.getElementById('birthday').value;
-            const hourVal = document.getElementById('birthtime').value;
+        // 修正：將邏輯封裝，確保 ID 抓取準確
+        function handleFormSubmit() {
+            const birthdayInput = document.getElementById('birthday');
+            const birthtimeSelect = document.getElementById('birthtime');
             
-            if(dateVal) {
-                const dateObj = new Date(dateVal);
-                document.getElementById('p-year').innerText = dateObj.getFullYear() + "年";
-                document.getElementById('p-month').innerText = (dateObj.getMonth() + 1) + "月";
-                document.getElementById('p-day').innerText = dateObj.getDate() + "日";
-                document.getElementById('p-hour').innerText = hourVal + "時";
+            // 1. 檢查必填欄位
+            if (!birthdayInput.value || !birthtimeSelect.value) {
+                alert("請完整填寫出生日期與時辰。");
+                return;
             }
 
+            // 2. 填充預覽數據
+            const date = new Date(birthdayInput.value);
+            document.getElementById('p-year').innerText = date.getFullYear() + "年";
+            document.getElementById('p-month').innerText = (date.getMonth() + 1) + "月";
+            document.getElementById('p-day').innerText = date.getDate() + "日";
+            document.getElementById('p-hour').innerText = birthtimeSelect.value + "時";
+
+            // 3. 開啟彈窗
+            openModal();
+        }
+
+        function openModal() {
+            const modal = document.getElementById('paymentModal');
             modal.style.display = 'flex';
             setTimeout(() => {
                 modal.classList.add('active');
             }, 10);
         }
 
-        function closeModal(e) {
+        function closeModal() {
+            const modal = document.getElementById('paymentModal');
             modal.classList.remove('active');
             setTimeout(() => {
                 modal.style.display = 'none';
-            },
+            }, 300);
+        }
+    </script>
+</body>
+</html>
