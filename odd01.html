@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>課程異常事件管理系統 - 原型</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .step-active { color: #2563eb; font-weight: bold; border-bottom: 2px solid #2563eb; }
+        .workflow-dot { width: 12px; height: 12px; border-radius: 50%; background: #d1d5db; position: relative; }
+        .workflow-dot.active { background: #2563eb; box-shadow: 0 0 0 4px #dbeafe; }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans text-gray-800">
+
+    <nav class="bg-white shadow-sm border-b border-gray-200 px-6 py-4 flex justify-between items-center">
+        <h1 class="text-xl font-bold text-blue-700">LOGOless 異常管理系統</h1>
+        <div class="space-x-4 text-sm">
+            <button onclick="showSection('report')" class="hover:text-blue-600">異常通報</button>
+            <button onclick="showSection('admin')" class="hover:text-blue-600">管理後台</button>
+        </div>
+    </nav>
+
+    <div class="max-w-6xl mx-auto mt-8 px-4">
+        <div class="flex justify-between items-center bg-white p-6 rounded-lg shadow-sm overflow-x-auto">
+            <div class="flex flex-col items-center min-w-[80px]"><div class="workflow-dot active"></div><span class="text-xs mt-2 text-blue-600">異常發生</span></div>
+            <div class="h-[2px] w-full bg-blue-100 mx-2"></div>
+            <div class="flex flex-col items-center min-w-[80px]"><div class="workflow-dot active"></div><span class="text-xs mt-2 text-blue-600">通報/分類</span></div>
+            <div class="h-[2px] w-full bg-gray-200 mx-2"></div>
+            <div class="flex flex-col items-center min-w-[80px]"><div class="workflow-dot"></div><span class="text-xs mt-2">即時處理</span></div>
+            <div class="h-[2px] w-full bg-gray-200 mx-2"></div>
+            <div class="flex flex-col items-center min-w-[80px]"><div class="workflow-dot"></div><span class="text-xs mt-2">審核/分析</span></div>
+            <div class="h-[2px] w-full bg-gray-200 mx-2"></div>
+            <div class="flex flex-col items-center min-w-[80px]"><div class="workflow-dot"></div><span class="text-xs mt-2">改善追蹤</span></div>
+        </div>
+    </div>
+
+    <main class="max-w-4xl mx-auto py-10 px-4">
+        
+        <section id="section-report" class="bg-white p-8 rounded-xl shadow-md border border-gray-100">
+            <h2 class="text-2xl font-bold mb-6 border-l-4 border-blue-600 pl-3">第一階段：異常事件通報</h2>
+            <form class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium mb-1">通報人身分</label>
+                        <select class="w-full border-gray-300 rounded-md shadow-sm p-2 bg-gray-50 border">
+                            <option>講師</option>
+                            <option>行政人員</option>
+                            <option>學員</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-1">異常分類 (依分類表)</label>
+                        <select class="w-full border-gray-300 rounded-md shadow-sm p-2 bg-gray-50 border">
+                            <option>設備故障 (投影機/電腦/麥克風)</option>
+                            <option>教學問題 (講師遲到/教材錯誤)</option>
+                            <option>環境異常 (冷氣/漏水/噪音)</option>
+                            <option>行政協助 (餐點/講義短缺)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium mb-1">狀況具體描述</label>
+                    <textarea rows="3" class="w-full border-gray-300 rounded-md shadow-sm p-2 bg-gray-50 border" placeholder="請描述發生時間與具體問題..."></textarea>
+                </div>
+
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <label class="block text-sm font-semibold text-blue-800 mb-2">即時處理紀錄 (現場已做的調整)</label>
+                    <textarea rows="2" class="w-full border-blue-200 rounded-md shadow-sm p-2 bg-white border" placeholder="例如：已先協助更換教室、重啟設備..."></textarea>
+                </div>
+
+                <button type="button" class="w-full bg-blue-600 text-white py-3 rounded-md font-bold hover:bg-blue-700 transition">送出通報並通知主管</button>
+            </form>
+        </section>
+
+        <section id="section-admin" class="hidden space-y-8">
+            <div class="bg-white p-8 rounded-xl shadow-md border border-gray-100">
+                <h2 class="text-2xl font-bold mb-6 border-l-4 border-orange-500 pl-3">第二階段：主管審核與原因分析</h2>
+                
+                <div class="mb-6 p-4 bg-gray-50 rounded-md border text-sm">
+                    <p><strong>通報案件：</strong> #ER-20260305-001</p>
+                    <p><strong>通報內容：</strong> 講師反映 302 教室投影機閃爍，無法顯示投影片。</p>
+                </div>
+
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium mb-2">主管審核意見</label>
+                        <div class="flex gap-4">
+                            <label class="flex items-center"><input type="radio" name="status" class="mr-2">核可並追蹤</label>
+                            <label class="flex items-center"><input type="radio" name="status" class="mr-2">需進一步說明</label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium mb-1">原因分析 (5 Whys)</label>
+                        <textarea rows="3" class="w-full border-gray-300 rounded-md shadow-sm p-2 bg-gray-50 border" placeholder="探究根本原因..."></textarea>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium mb-1">提出改善措施</label>
+                            <input type="text" class="w-full border-gray-300 rounded-md shadow-sm p-2 bg-gray-50 border" placeholder="未來預防方案">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-1">追蹤期限</label>
+                            <input type="date" class="w-full border-gray-300 rounded-md shadow-sm p-2 bg-gray-50 border">
+                        </div>
+                    </div>
+
+                    <button type="button" class="w-full bg-gray-800 text-white py-3 rounded-md font-bold hover:bg-black transition">儲存分析並納入檢討</button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        function showSection(type) {
+            document.getElementById('section-report').classList.add('hidden');
+            document.getElementById('section-admin').classList.add('hidden');
+            document.getElementById('section-' + type).classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
